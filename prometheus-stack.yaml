@@ -1,0 +1,24 @@
+alertmanager:
+  enabled: false
+  ingress:
+    enabled: false
+grafana:
+  enabled: false
+prometheus:
+  enabled: true
+  ingress:
+    enabled: false
+  prometheusSpec:
+    enableRemoteWriteReceiver: true
+    externalLabels:
+      cluster: ec2-obs-deploy-apps
+    remoteWrite:
+    - name: prometheus-otlp-central
+      sendExemplars: true
+      url: http://107.23.191.158:30002/api/v1/write
+    scrapeInterval: 10s
+prometheus-node-exporter:
+  hostRootFsMount:
+    enabled: false
+prometheusOperator:
+  enabled: true
